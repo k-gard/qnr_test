@@ -3,6 +3,8 @@ package gr.qnr.EmployeeInfo.controllers;
 import gr.qnr.EmployeeInfo.mappers.EmployeeToEmployeeXmlModelMapper;
 import gr.qnr.EmployeeInfo.models.Employee;
 import gr.qnr.EmployeeInfo.services.EmployeeService;
+import gr.qnr.EmployeeInfo.xmlmodels.Departments;
+import gr.qnr.EmployeeInfo.xmlmodels.Employees;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +31,7 @@ public class EmployeeController {
     public ResponseEntity getAllEmployees(){
         List<Employee> employees = service.getAllEmployees();
         if(employees.isEmpty()){
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new Employees(Collections.emptyList()),null,HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity(mapper.mapEmployeeList(employees), null, HttpStatus.OK);
     }
@@ -38,7 +40,7 @@ public class EmployeeController {
     public ResponseEntity getEmployeesByDepartmentId(@PathVariable int id){
         List<Employee> employees = service.getEmployeesByDepartmentId(id);
         if (employees.isEmpty()) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new Employees(Collections.emptyList()),null,HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity(mapper.mapEmployeeList(employees), null, HttpStatus.OK);
     }
@@ -55,7 +57,7 @@ public class EmployeeController {
     public ResponseEntity getEmployeeByLastName(@PathVariable @Valid String lastname){
         List<Employee> employees =  service.getEmployeesByLastName(lastname);
         if (employees.isEmpty()) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new Employees(Collections.emptyList()),null,HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity(mapper.mapEmployeeList(employees), null, HttpStatus.OK);
     }
@@ -64,7 +66,7 @@ public class EmployeeController {
     public ResponseEntity getEmployeeById(@PathVariable @Valid int id){
         Optional<Employee> employee = service.getEmployeeById(id);
         if (employee.isEmpty()) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new Employee(),null, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity(mapper.mapEmployeeToEmployeeXmlModel(employee.get()), null, HttpStatus.OK);
     }
