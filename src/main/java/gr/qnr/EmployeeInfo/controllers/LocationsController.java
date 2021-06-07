@@ -1,7 +1,6 @@
 package gr.qnr.EmployeeInfo.controllers;
 
 import gr.qnr.EmployeeInfo.mappers.LocationToLocationXmlModelMapper;
-import gr.qnr.EmployeeInfo.models.GenericResponse;
 import gr.qnr.EmployeeInfo.models.Location;
 import gr.qnr.EmployeeInfo.services.LocationsService;
 import org.springframework.http.HttpStatus;
