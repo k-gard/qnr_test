@@ -1,4 +1,4 @@
-package gr.xe.rating.service.configuration;
+package gr.qnr.EmployeeInfo.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

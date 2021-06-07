@@ -55,7 +55,7 @@ public class DepartmentController {
 
     //>refactor to get location from repository
     @GetMapping(path = "/location/{id}")
-    public ModelAndView viewDepartmentsByLocation(@PathVariable @Valid int id){
+    public ModelAndView viewDepartmentsByLocationId(@PathVariable @Valid int id){
         List<Department> departments = service.getDepartmentsByLocationId(id);
         if (departments.isEmpty()){return new ModelAndView("404");}
         ModelAndView modelAndView = new ModelAndView("view-department-by-location");

@@ -44,7 +44,7 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "api/employees/name/{lastname}/{firstname}",produces=MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity getEmployeeByName(@PathVariable String lastname,@PathVariable String firstname){
+    public ResponseEntity getEmployeeByFullName(@PathVariable String lastname,@PathVariable String firstname){
         if (service.getEmployeesByFullName(lastname,firstname).isEmpty()) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
@@ -52,7 +52,7 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "api/employees/name/{lastname}",produces=MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity getEmployeeByName(@PathVariable @Valid String lastname){
+    public ResponseEntity getEmployeeByLastName(@PathVariable @Valid String lastname){
         List<Employee> employees =  service.getEmployeesByLastName(lastname);
         if (employees.isEmpty()) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -62,11 +62,11 @@ public class EmployeeController {
 
     @GetMapping(path = "api/employees/id/{id}",produces=MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity getEmployeeById(@PathVariable @Valid int id){
-        List<Employee> employees = service.getEmployeesByDepartmentId(id);
-        if (employees.isEmpty()) {
+        Optional<Employee> employee = service.getEmployeeById(id);
+        if (employee.isEmpty()) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity(mapper.mapEmployeeList(employees), null, HttpStatus.OK);
+        return new ResponseEntity(mapper.mapEmployeeToEmployeeXmlModel(employee.get()), null, HttpStatus.OK);
     }
 
     //Returns view of employees by department
