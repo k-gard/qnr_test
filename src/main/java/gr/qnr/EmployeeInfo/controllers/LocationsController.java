@@ -45,7 +45,7 @@ public class LocationsController {
 
     @GetMapping(path = "/locations")
     public ModelAndView viewHome(){
-        ModelAndView modelAndView = new ModelAndView("view-locations");
+        ModelAndView modelAndView = new ModelAndView("index");
         return modelAndView;
     }
 
