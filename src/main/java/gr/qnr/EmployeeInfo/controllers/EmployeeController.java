@@ -85,7 +85,11 @@ public class EmployeeController {
     @GetMapping(path = "/employee/{id}")
     public ModelAndView viewEmployeeInfo(@PathVariable int id){
         Optional<Employee> employeeOptional = service.getEmployeeById(id);
-        if(employeeOptional.isEmpty()){return new ModelAndView("404");}
+        if(employeeOptional.isEmpty()){
+            ModelAndView error = new ModelAndView("404");
+            error.addObject("item","Employee");
+            return error;
+        }
         ModelAndView modelAndView = new ModelAndView("view-employee-info");
         modelAndView.addObject("employee", employeeOptional.get());
         return modelAndView;
@@ -93,7 +97,11 @@ public class EmployeeController {
     @GetMapping(path = "/employees")
     public ModelAndView viewEmployees(){
         List<Employee> employees = service.getAllEmployees();
-        if(employees.isEmpty()){return new ModelAndView("404");}
+        if(employees.isEmpty()){
+            ModelAndView error = new ModelAndView("404");
+            error.addObject("item","Employee");
+            return error;
+        }
         ModelAndView modelAndView = new ModelAndView("view-employees");
         modelAndView.addObject("employees", employees);
         modelAndView.addObject("title", "Employees");

@@ -56,11 +56,15 @@ public class DepartmentController {
         return new ResponseEntity(mapper.mapDepartmentList(departments), null, HttpStatus.OK);
     }
 
-    //>refactor to get location from repository
+   
     @GetMapping(path = "/location/{id}")
     public ModelAndView viewDepartmentsByLocationId(@PathVariable @Valid int id){
         List<Department> departments = service.getDepartmentsByLocationId(id);
-        if (departments.isEmpty()){return new ModelAndView("404");}
+        if (departments.isEmpty()){
+            ModelAndView error = new ModelAndView("404");
+            error.addObject("item","Department");
+            return error;
+        }
         ModelAndView modelAndView = new ModelAndView("view-department-by-location");
         modelAndView.addObject("departments", service.getDepartmentsByLocationId(id));
         modelAndView.addObject("title", "View Departments");
@@ -71,7 +75,12 @@ public class DepartmentController {
     @GetMapping(path = "/departments")
     public ModelAndView viewDepartments(){
         List<Department> departments = service.getAllDepartments();
-        if (departments.isEmpty()){return new ModelAndView("404");}
+        if (departments.isEmpty()){
+            ModelAndView error = new ModelAndView("404");
+            error.addObject("item","Department");
+            return error;
+
+        }
         ModelAndView modelAndView = new ModelAndView("view-departments");
         modelAndView.addObject("departments", service.getAllDepartments());
         modelAndView.addObject("title", "Departments");

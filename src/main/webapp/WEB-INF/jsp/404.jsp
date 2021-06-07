@@ -13,7 +13,7 @@
     </div>
     <div class="col-sm-8">
         <div class = "text-center">
-            <h1>404 Not Found</h1>
+            <h1>No ${item} Found</h1>
         </div>
 
     </div>
