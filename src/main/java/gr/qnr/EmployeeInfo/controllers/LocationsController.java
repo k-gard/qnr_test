@@ -43,4 +43,10 @@ public class LocationsController {
         return modelAndView;
     }
 
+    @GetMapping(path = "/locations")
+    public ModelAndView viewHome(){
+        ModelAndView modelAndView = new ModelAndView("view-locations");
+        return modelAndView;
+    }
+
 }
